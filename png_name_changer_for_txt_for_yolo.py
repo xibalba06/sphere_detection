@@ -2,54 +2,54 @@ import os
 from pathlib import Path
 
 def rename_png_files(directory):
-    """PNG dosyalarının isimlerini değiştirir"""
-    # Klasördeki tüm PNG dosyalarını listele
+    """Renames PNG files in the specified directory."""
+    # List all PNG files in the directory
     png_files = sorted([f for f in os.listdir(directory) if f.endswith('.png')])
 
-    print(f"Toplam {len(png_files)} PNG dosyası bulundu.")
-    print("\nDosya isimleri değiştiriliyor...")
+    print(f"Found {len(png_files)} PNG files.")
+    print("\nRenaming files...")
 
-    # Her dosya için
+    # For each file
     for png_file in png_files:
-        # Mevcut dosya yolu
+        # Current file path
         old_path = os.path.join(directory, png_file)
 
-        # Yeni isim oluştur (rgb_ kısmını kaldır)
-        new_name = png_file.replace('rgb_', '')  # 'rgb_' önekini kaldır
+        # Create new name (remove 'rgb_' prefix)
+        new_name = png_file.replace('rgb_', '')  # Remove 'rgb_' prefix
 
-        # Yeni dosya yolu
+        # New file path
         new_path = os.path.join(directory, new_name)
 
         try:
-            # Dosyayı yeniden adlandır
+            # Rename the file
             os.rename(old_path, new_path)
-            print(f"Değiştirildi: {png_file} -> {new_name}")
+            print(f"Renamed: {png_file} -> {new_name}")
         except Exception as e:
-            print(f"Hata: {png_file} değiştirilemedi - {str(e)}")
+            print(f"Error: {png_file} could not be renamed - {str(e)}")
 
-    print("\nİşlem tamamlandı!")
+    print("\nProcess completed!")
 
 def main():
-    # PNG dosyalarının bulunduğu klasör
-    png_directory = r"C:\Users\def2i\OneDrive\Masaüstü\project see\png_files"
+    # Directory containing PNG files
+    png_directory = r"your/project/path/png_files"
 
-    # Klasörün varlığını kontrol et
+    # Check if the directory exists
     if not os.path.exists(png_directory):
-        print(f"Hata: {png_directory} klasörü bulunamadı!")
+        print(f"Error: {png_directory} directory not found!")
         return
 
-    # Örnek bir dosya ismi göster
+    # Show an example file name
     example_files = os.listdir(png_directory)[:1]
     if example_files:
-        print(f"Örnek dosya ismi: {example_files[0]}")
+        print(f"Example file name: {example_files[0]}")
 
-    # Kullanıcıdan onay al
-    response = input("\nDosya isimlerini değiştirmek istediğinizden emin misiniz? (evet/hayır): ")
-    if response.lower() != 'evet':
-        print("İşlem iptal edildi.")
+    # Get confirmation from the user
+    response = input("\nAre you sure you want to rename the files? (yes/no): ")
+    if response.lower() != 'yes':
+        print("Operation canceled.")
         return
 
-    # Dosya isimlerini değiştir
+    # Rename the files
     rename_png_files(png_directory)
 
 if __name__ == "__main__":
