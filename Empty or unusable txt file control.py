@@ -2,54 +2,54 @@ import os
 
 def check_txt_files(txt_folder):
     """
-    .txt dosyalarını kontrol eder ve içi boş veya geçersiz formatta olanları ayırt eder.
+    Checks .txt files and identifies empty or invalid format files.
 
     Args:
-        txt_folder (str): .txt dosyalarının bulunduğu klasör.
+        txt_folder (str): Folder containing .txt files.
 
     Returns:
-        dict: İçi boş ve geçersiz dosyaların listelerini içeren bir sözlük.
+        dict: A dictionary containing lists of empty and invalid files.
     """
-    empty_files = []  # İçi boş dosyalar
-    invalid_files = []  # Geçersiz formatta dosyalar
+    empty_files = []  # Empty files
+    invalid_files = []  # Invalid format files
 
-    # Tüm .txt dosyalarını al
+    # Get all .txt files
     txt_files = [f for f in os.listdir(txt_folder) if f.endswith(".txt")]
 
     for txt_file in txt_files:
         txt_path = os.path.join(txt_folder, txt_file)
 
-        # Dosyanın içeriğini oku
+        # Read the content of the file
         with open(txt_path, "r") as f:
             lines = f.readlines()
 
-        # İçi boş dosyaları kontrol et
+        # Check for empty files
         if len(lines) == 0:
             empty_files.append(txt_file)
             continue
 
-        # Geçersiz formatta dosyaları kontrol et
+        # Check for invalid format files
         for line in lines:
             parts = line.strip().split()
-            # YOLO formatı: Her satırda en az 5 eleman olmalı (class_id, x_center, y_center, width, height)
+            # YOLO format: Each line must have at least 5 elements (class_id, x_center, y_center, width, height)
             if len(parts) < 5:
                 invalid_files.append(txt_file)
                 break
 
     return {"empty_files": empty_files, "invalid_files": invalid_files}
 
-# Kullanım
+# Usage
 if __name__ == "__main__":
-    txt_folder = r"C:\Users\def2i\OneDrive\Masaüstü\project see\txt_files"  # .txt dosyalarının bulunduğu klasör
+    txt_folder = r"your/project/path/txt_files"  # Folder containing .txt files
 
-    # Dosyaları kontrol et
+    # Check the files
     result = check_txt_files(txt_folder)
 
-    # Sonuçları yazdır
-    print("İçi boş dosyalar:")
+    # Print the results
+    print("Empty files:")
     for file in result["empty_files"]:
         print(f"  - {file}")
 
-    print("\nGeçersiz formatta dosyalar:")
+    print("\nInvalid format files:")
     for file in result["invalid_files"]:
         print(f"  - {file}")
