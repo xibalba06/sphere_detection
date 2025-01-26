@@ -3,47 +3,47 @@ import os
 
 def check_paths():
     """
-    Klasör yollarını kontrol et ve detaylı bilgi ver
+    Check folder paths and provide detailed information
     """
-    # Klasör yollarını belirle
-    base_dir = Path(r"C:\Users\def2i\OneDrive\Masaüstü\project see")
+    # Define folder paths
+    base_dir = Path(r"your/main/project/path")
     image_dir = base_dir / "png_files"
     label_dir = base_dir / "txt_files"
     output_dir = base_dir / "dataset"
 
-    # Kontrol edilecek klasörleri ve açıklamalarını listele
+    # List folders to check and their descriptions
     paths_to_check = {
-        "Ana klasör": base_dir,
-        "Görüntü klasörü": image_dir,
-        "Etiket klasörü": label_dir,
-        "Çıktı klasörü": output_dir
+        "Base folder": base_dir,
+        "Image folder": image_dir,
+        "Label folder": label_dir,
+        "Output folder": output_dir
     }
 
-    # Her klasörü kontrol et
+    # Check each folder
     for description, path in paths_to_check.items():
-        print(f"\nKontrol ediliyor: {description}")
-        print(f"Yol: {path}")
+        print(f"\nChecking: {description}")
+        print(f"Path: {path}")
 
         if path.exists():
-            print("✓ Klasör mevcut")
+            print("✓ Folder exists")
 
-            # Klasör içeriğini kontrol et
-            if description in ["Görüntü klasörü", "Etiket klasörü"]:
+            # Check folder contents
+            if description in ["Image folder", "Label folder"]:
                 files = list(path.glob('*.*'))
-                print(f"- Dosya sayısı: {len(files)}")
+                print(f"- Number of files: {len(files)}")
                 if files:
-                    print(f"- Örnek dosyalar: {', '.join(str(f.name) for f in files[:3])}")
+                    print(f"- Example files: {', '.join(str(f.name) for f in files[:3])}")
 
-            # Yazma izinlerini kontrol et
+            # Check write permissions
             if os.access(path, os.W_OK):
-                print("✓ Yazma izni mevcut")
+                print("✓ Write permission available")
             else:
-                print("✗ Yazma izni yok!")
+                print("✗ No write permission!")
         else:
-            print("✗ Klasör bulunamadı!")
+            print("✗ Folder not found!")
 
 if __name__ == "__main__":
     try:
         check_paths()
     except Exception as e:
-        print(f"\nHata oluştu: {str(e)}")
+        print(f"\nAn error occurred: {str(e)}")
