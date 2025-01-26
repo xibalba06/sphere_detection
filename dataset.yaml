@@ -1,0 +1,5 @@
+names:
+- "K\xFCre"
+path: "C:\\Users\\def2i\\OneDrive\\Masa\xFCst\xFC\\project see"
+train: train/images
+val: val/images

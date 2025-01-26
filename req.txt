@@ -1,0 +1,17 @@
+torchaudio --index-url https://download.pytorch.org/whl/cu124
+opencv-python
+opencv-contrib-python
+numpy
+matplotlib
+torch
+torchvision
+pycuda
+pillow
+tqdm
+ultralytics
+pandas
+asyncio
+dis
+pillow
+
+
