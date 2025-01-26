@@ -4,53 +4,53 @@ from pathlib import Path
 
 def train_model(yaml_path, epochs=100, imgsz=512, batch=16):
     """
-    YOLOv8 segmentasyon modelini eğitir.
+    Trains a YOLOv8 segmentation model.
 
-    Parametreler:
-        yaml_path: Veri seti yapılandırma dosyasının yolu
-        epochs: Eğitim epoch sayısı
-        imgsz: Görüntü boyutu
+    Parameters:
+        yaml_path: Path to the dataset configuration file
+        epochs: Number of training epochs
+        imgsz: Image size
         batch: Batch size
     """
     try:
-        # YOLOv8s-seg modelini yükle
-        model = YOLO('yolov8s.pt')  # Segmentasyon modeli için yolov8s-seg.pt kullanılıyor
+        # Load the YOLOv8s-seg model
+        model = YOLO('yolov8s.pt')  # For segmentation, use yolov8s-seg.pt
 
-        # Model eğitimini başlat
+        # Start model training
         results = model.train(
-            data=yaml_path,          # veri seti yapılandırma dosyası
-            epochs=epochs,           # toplam epoch sayısı
-            imgsz=imgsz,            # görüntü boyutu
-            batch=batch,            # batch size
-            name='train',       # eğitim sonuçlarının kaydedileceği klasör adı
-            device='0',             # GPU kullanımı için '0', CPU için 'cpu'
-            patience=20,            # early stopping için sabır değeri
-            save=True,              # en iyi modeli kaydet
-            plots=True              # eğitim grafiklerini kaydet
+            data=yaml_path,          # Dataset configuration file
+            epochs=epochs,           # Total number of epochs
+            imgsz=imgsz,             # Image size
+            batch=batch,             # Batch size
+            name='train',            # Folder name for training results
+            device='0',              # Use '0' for GPU, 'cpu' for CPU
+            patience=20,             # Patience value for early stopping
+            save=True,               # Save the best model
+            plots=True               # Save training plots
         )
 
-        print("Model eğitimi tamamlandı!")
+        print("Model training completed!")
         return results
 
     except Exception as e:
-        print(f"Model eğitimi sırasında hata oluştu: {str(e)}")
+        print(f"An error occurred during model training: {str(e)}")
         return None
 
 def main():
-    # Veri seti yapılandırma dosyasının yolu
-    yaml_path = r"C:\Users\def2i\OneDrive\Masaüstü\project see\dataset.yaml"
+    # Path to the dataset configuration file
+    yaml_path = r"your/project/path/dataset.yaml"
 
-    # Dosyanın varlığını kontrol et
+    # Check if the file exists
     if not os.path.exists(yaml_path):
-        print(f"Hata: {yaml_path} bulunamadı!")
+        print(f"Error: {yaml_path} not found!")
         return
 
-    print("Model eğitimi başlıyor...")
+    print("Starting model training...")
     results = train_model(
         yaml_path=yaml_path,
-        epochs=100,          # Eğitim epoch sayısı
-        imgsz=512,          # Görüntü boyutu
-        batch=16            # Batch size
+        epochs=100,          # Number of training epochs
+        imgsz=512,           # Image size
+        batch=16             # Batch size
     )
 
 if __name__ == "__main__":
