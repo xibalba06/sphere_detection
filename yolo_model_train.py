@@ -4,7 +4,7 @@ from pathlib import Path
 
 def train_model(yaml_path, epochs=100, imgsz=512, batch=16):
     """
-    Trains a YOLOv8 segmentation model.
+   
 
     Parameters:
         yaml_path: Path to the dataset configuration file
