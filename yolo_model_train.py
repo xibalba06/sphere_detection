@@ -13,8 +13,8 @@ def train_model(yaml_path, epochs=100, imgsz=512, batch=16):
         batch: Batch size
     """
     try:
-        # Load the YOLOv8s-seg model
-        model = YOLO('yolov8s.pt')  # For segmentation, use yolov8s-seg.pt
+        # Load the YOLOv8s model
+        model = YOLO('yolov8s.pt')  # use yolov8s-seg.pt
 
         # Start model training
         results = model.train(
